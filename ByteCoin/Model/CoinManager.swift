@@ -30,8 +30,9 @@ struct CoinManager {
                     print(error!)
                     return
                 }
-                
-                print(data!)
+                //Format the data we got back as a string to be able to print it.
+                let dataAsString = String(data: data!, encoding: .utf8)
+                print(dataAsString)
                 
             }
             //Start task to fetch data from bitcoin average's servers.
@@ -39,5 +40,5 @@ struct CoinManager {
         }
     }
     
-    
 }
+
