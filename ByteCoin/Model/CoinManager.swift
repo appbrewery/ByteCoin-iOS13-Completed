@@ -29,7 +29,6 @@ struct CoinManager {
                 if let safeData = data {
                     let bitcoinPrice = self.parseJSON(safeData)
                 }
-                
             }
             task.resume()
         }
@@ -37,21 +36,14 @@ struct CoinManager {
     
     func parseJSON(_ data: Data) -> Double? {
         
-        //Create a JSONDecoder
         let decoder = JSONDecoder()
         do {
-            
-            //try to decode the data using the CoinData structure
             let decodedData = try decoder.decode(CoinData.self, from: data)
-            
-            //Get the last property from the decoded data.
             let lastPrice = decodedData.last
             print(lastPrice)
             return lastPrice
             
         } catch {
-            
-            //Catch and print any errors.
             print(error)
             return nil
         }
