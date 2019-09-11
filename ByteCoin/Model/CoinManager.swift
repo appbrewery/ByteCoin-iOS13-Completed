@@ -16,7 +16,7 @@ struct CoinManager {
     func getCoinPrice(for currency: String) {
         
         let urlString = baseURL + currency
-    
+        
         if let url = URL(string: urlString) {
             
             let session = URLSession(configuration: .default)
@@ -25,11 +25,35 @@ struct CoinManager {
                     print(error!)
                     return
                 }
-                let dataAsString = String(data: data!, encoding: .utf8)
-                print(dataAsString)
+                
+                if let safeData = data {
+                    let bitcoinPrice = self.parseJSON(safeData)
+                }
                 
             }
             task.resume()
+        }
+    }
+    
+    func parseJSON(_ data: Data) -> Double? {
+        
+        //Create a JSONDecoder
+        let decoder = JSONDecoder()
+        do {
+            
+            //try to decode the data using the CoinData structure
+            let decodedData = try decoder.decode(CoinData.self, from: data)
+            
+            //Get the last property from the decoded data.
+            let lastPrice = decodedData.last
+            print(lastPrice)
+            return lastPrice
+            
+        } catch {
+            
+            //Catch and print any errors.
+            print(error)
+            return nil
         }
     }
     
