@@ -1,5 +1,5 @@
 //
-//  coinManager.swift
+//  CoinManager.swift
 //  ByteCoin
 //
 //  Created by Angela Yu on 11/09/2019.
