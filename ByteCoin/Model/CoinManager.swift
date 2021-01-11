@@ -29,8 +29,10 @@ struct CoinManager {
         
         if let url = URL(string: urlString) {
             
-            let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: url) { (data, response, error) in
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            request.addValue(apiKey, forHTTPHeaderField: "X-CoinAPI-Key")
+            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if error != nil {
                     self.delegate?.didFailWithError(error: error!)
                     return
